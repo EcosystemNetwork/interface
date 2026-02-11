@@ -122,7 +122,7 @@ export default function TokenDetails({
   const tokenQueryData = tokenQuery.token
   const crossChainMap = useMemo(
     () =>
-      tokenQueryData?.project?.tokens.reduce((map, current) => {
+      tokenQueryData?.project?.tokens.reduce((map: any, current: any) => {
         if (current) map[current.chain] = current.address
         return map
       }, {} as { [key: string]: string | undefined }) ?? {},

@@ -96,10 +96,10 @@ export function useSearchTokens(searchQuery: string, chainId: number) {
     const searchChain = chainIdToBackendName(chainId)
     // Stores results, allowing overwriting cross-chain tokens w/ more 'relevant token'
     const selectionMap: { [projectId: string]: SearchToken } = {}
-    const filteredTokens = data?.searchTokens?.filter((token) =>
+    const filteredTokens = data?.searchTokens?.filter((token: any) =>
       (BACKEND_SUPPORTED_CHAINS as ReadonlyArray<Chain>).includes(token.chain)
     )
-    filteredTokens?.forEach((token) => {
+    filteredTokens?.forEach((token: any) => {
       if (token.project?.id) {
         const existing = selectionMap[token.project.id]
         selectionMap[token.project.id] = dedupeCrosschainTokens(token, existing, searchChain)

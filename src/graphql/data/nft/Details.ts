@@ -128,7 +128,7 @@ export function useNftAssetDetails(
             basePrice: ethPrice,
           },
           susFlag: asset?.suspiciousFlag,
-          sellorders: asset?.listings?.edges.map((listingNode) => {
+          sellorders: asset?.listings?.edges.map((listingNode: any) => {
             return {
               ...listingNode.node,
               protocolParameters: listingNode.node.protocolParameters
@@ -142,7 +142,7 @@ export function useNftAssetDetails(
           collectionIsVerified: asset?.collection?.isVerified,
           rarity: {
             primaryProvider: 'Rarity Sniper', // TODO update when backend adds more providers
-            providers: asset?.rarities?.map((rarity) => {
+            providers: asset?.rarities?.map((rarity: any) => {
               return {
                 rank: rarity.rank,
                 score: rarity.score,
@@ -156,7 +156,7 @@ export function useNftAssetDetails(
             address: asset?.creator?.address ?? '',
           },
           metadataUrl: asset?.metadataUrl ?? '',
-          traits: asset?.traits?.map((trait) => {
+          traits: asset?.traits?.map((trait: any) => {
             return { trait_type: trait.name ?? '', trait_value: trait.value ?? '' }
           }),
         },

@@ -119,7 +119,7 @@ function formatAssetQueryData(queryAsset: NftAssetEdge, totalCount?: number) {
       basePrice: ethPrice,
     },
     susFlag: asset.suspiciousFlag,
-    sellorders: asset.listings?.edges.map((listingNode) => {
+    sellorders: asset.listings?.edges.map((listingNode: any) => {
       return {
         ...listingNode.node,
         protocolParameters: listingNode.node?.protocolParameters
@@ -134,7 +134,7 @@ function formatAssetQueryData(queryAsset: NftAssetEdge, totalCount?: number) {
     collectionIsVerified: asset.collection?.isVerified,
     rarity: {
       primaryProvider: 'Rarity Sniper', // TODO update when backend adds more providers
-      providers: asset.rarities?.map((rarity) => {
+      providers: asset.rarities?.map((rarity: any) => {
         return {
           ...rarity,
           provider: 'Rarity Sniper',
@@ -193,7 +193,7 @@ export function useNftAssets(params: AssetFetcherParams) {
   // It is especially important for this to be memoized to avoid re-rendering from polling if data is unchanged.
   const assets: GenieAsset[] | undefined = useMemo(
     () =>
-      data?.nftAssets?.edges?.map((queryAsset) => {
+      data?.nftAssets?.edges?.map((queryAsset: any) => {
         return formatAssetQueryData(queryAsset as NonNullable<NftAssetEdge>, data.nftAssets?.totalCount)
       }),
     [data?.nftAssets?.edges, data?.nftAssets?.totalCount]
@@ -256,7 +256,7 @@ export function useSweepNftAssets(params: SweepFetcherParams) {
   })
   const assets = useMemo<GenieAsset[] | undefined>(
     () =>
-      data?.nftAssets?.edges?.map((queryAsset) => {
+      data?.nftAssets?.edges?.map((queryAsset: any) => {
         return formatAssetQueryData(queryAsset as NonNullable<NftAssetEdge>, data.nftAssets?.totalCount)
       }),
     [data?.nftAssets?.edges, data?.nftAssets?.totalCount]

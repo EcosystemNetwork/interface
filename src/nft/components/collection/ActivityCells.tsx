@@ -262,7 +262,7 @@ export const EventCell = ({
     <Column height="full" justifyContent="center" gap="4">
       <Row className={styles.eventDetail} color={eventColors(eventType)}>
         {renderEventIcon(eventType)}
-        {ActivityEventTypeDisplay[eventType]}
+        {ActivityEventTypeDisplay[eventType as keyof typeof ActivityEventTypeDisplay]}
       </Row>
       {eventTimestamp && !isMobile && !eventOnly && (
         <Row className={styles.eventTime}>

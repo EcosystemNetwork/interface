@@ -61,7 +61,7 @@ export function useTrendingCollections(size: number, timePeriod: HistoryDuration
 
   const trendingCollections: TrendingCollection[] | undefined = useMemo(
     () =>
-      data?.topCollections?.edges?.map((edge) => {
+      data?.topCollections?.edges?.map((edge: any) => {
         const collection = edge?.node
         return {
           name: collection.name,

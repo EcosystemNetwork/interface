@@ -188,7 +188,7 @@ function useAllV3Ticks(
 
   useEffect(() => {
     if (data?.ticks.length) {
-      setSubgraphTickData((tickData) => [...tickData, ...data.ticks])
+      setSubgraphTickData((tickData: any) => [...tickData, ...data.ticks])
       if (data.ticks.length === MAX_THE_GRAPH_TICK_FETCH_VALUE) {
         setSkipNumber((skipNumber) => skipNumber + MAX_THE_GRAPH_TICK_FETCH_VALUE)
       }

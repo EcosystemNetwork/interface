@@ -92,7 +92,7 @@ export function useNftActivity(filter: NftActivityFilterInput, first?: number, f
 
   const nftActivity: ActivityEvent[] | undefined = useMemo(
     () =>
-      data?.nftActivity?.edges?.map((queryActivity) => {
+      data?.nftActivity?.edges?.map((queryActivity: any) => {
         const activity = queryActivity?.node
         const asset = activity?.asset
         return {
@@ -105,7 +105,7 @@ export function useNftActivity(filter: NftActivityFilterInput, first?: number, f
             metadataUrl: asset?.metadataUrl,
             rarity: {
               primaryProvider: 'Rarity Sniper', // TODO update when backend adds more providers
-              providers: asset?.rarities?.map((rarity) => {
+              providers: asset?.rarities?.map((rarity: any) => {
                 return {
                   ...rarity,
                   provider: 'Rarity Sniper',
