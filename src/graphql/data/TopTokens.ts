@@ -93,22 +93,24 @@ function useSortedTokens(tokens: TopTokens100Query['topTokens']) {
     let tokenArray = Array.from(tokens)
     switch (sortMethod) {
       case TokenSortMethod.PRICE:
-        tokenArray = tokenArray.sort((a: any, b: any) => (b?.market?.price?.value ?? 0) - (a?.market?.price?.value ?? 0))
+        tokenArray = tokenArray.sort(
+          (a: any, b: any) => (b?.market?.price?.value ?? 0) - (a?.market?.price?.value ?? 0)
+        )
         break
       case TokenSortMethod.PERCENT_CHANGE:
         tokenArray = tokenArray.sort(
-          (a: any, b: any) =>
-            (b?.market?.pricePercentChange?.value ?? 0) - (a?.market?.pricePercentChange?.value ?? 0)
+          (a: any, b: any) => (b?.market?.pricePercentChange?.value ?? 0) - (a?.market?.pricePercentChange?.value ?? 0)
         )
         break
       case TokenSortMethod.TOTAL_VALUE_LOCKED:
         tokenArray = tokenArray.sort(
-          (a: any, b: any) =>
-            (b?.market?.totalValueLocked?.value ?? 0) - (a?.market?.totalValueLocked?.value ?? 0)
+          (a: any, b: any) => (b?.market?.totalValueLocked?.value ?? 0) - (a?.market?.totalValueLocked?.value ?? 0)
         )
         break
       case TokenSortMethod.VOLUME:
-        tokenArray = tokenArray.sort((a: any, b: any) => (b?.market?.volume?.value ?? 0) - (a?.market?.volume?.value ?? 0))
+        tokenArray = tokenArray.sort(
+          (a: any, b: any) => (b?.market?.volume?.value ?? 0) - (a?.market?.volume?.value ?? 0)
+        )
         break
     }
 
@@ -189,7 +191,7 @@ export function useTopTokens(chain: Chain): UseTopTokensReturnValue {
           ...acc,
           [cur.address]: i + 1,
         }
-      }, {} as Record<string, number>) ?? ({} as Record<string, number>),
+      }, {}) ?? ({} as Record<string, number>),
     [sortedTokens]
   )
   const filteredTokens = useFilteredTokens(sortedTokens)
