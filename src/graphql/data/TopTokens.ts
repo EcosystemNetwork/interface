@@ -93,20 +93,24 @@ function useSortedTokens(tokens: TopTokens100Query['topTokens']) {
     let tokenArray = Array.from(tokens)
     switch (sortMethod) {
       case TokenSortMethod.PRICE:
-        tokenArray = tokenArray.sort((a, b) => (b?.market?.price?.value ?? 0) - (a?.market?.price?.value ?? 0))
+        tokenArray = tokenArray.sort(
+          (a: any, b: any) => (b?.market?.price?.value ?? 0) - (a?.market?.price?.value ?? 0)
+        )
         break
       case TokenSortMethod.PERCENT_CHANGE:
         tokenArray = tokenArray.sort(
-          (a, b) => (b?.market?.pricePercentChange?.value ?? 0) - (a?.market?.pricePercentChange?.value ?? 0)
+          (a: any, b: any) => (b?.market?.pricePercentChange?.value ?? 0) - (a?.market?.pricePercentChange?.value ?? 0)
         )
         break
       case TokenSortMethod.TOTAL_VALUE_LOCKED:
         tokenArray = tokenArray.sort(
-          (a, b) => (b?.market?.totalValueLocked?.value ?? 0) - (a?.market?.totalValueLocked?.value ?? 0)
+          (a: any, b: any) => (b?.market?.totalValueLocked?.value ?? 0) - (a?.market?.totalValueLocked?.value ?? 0)
         )
         break
       case TokenSortMethod.VOLUME:
-        tokenArray = tokenArray.sort((a, b) => (b?.market?.volume?.value ?? 0) - (a?.market?.volume?.value ?? 0))
+        tokenArray = tokenArray.sort(
+          (a: any, b: any) => (b?.market?.volume?.value ?? 0) - (a?.market?.volume?.value ?? 0)
+        )
         break
     }
 
@@ -123,7 +127,7 @@ function useFilteredTokens(tokens: TopTokens100Query['topTokens']) {
     if (!tokens) return undefined
     let returnTokens = tokens
     if (lowercaseFilterString) {
-      returnTokens = returnTokens?.filter((token) => {
+      returnTokens = returnTokens?.filter((token: any) => {
         const addressIncludesFilterString = token?.address?.toLowerCase().includes(lowercaseFilterString)
         const nameIncludesFilterString = token?.name?.toLowerCase().includes(lowercaseFilterString)
         const symbolIncludesFilterString = token?.symbol?.toLowerCase().includes(lowercaseFilterString)
@@ -158,13 +162,14 @@ export function useTopTokens(chain: Chain): UseTopTokensReturnValue {
   )
 
   const sparklines = useMemo(() => {
-    const unwrappedTokens = chainId && sparklineQuery?.topTokens?.map((topToken) => unwrapToken(chainId, topToken))
+    const sparklineData = sparklineQuery as any
+    const unwrappedTokens = chainId && sparklineData?.topTokens?.map((topToken: any) => unwrapToken(chainId, topToken))
     const map: SparklineMap = {}
     unwrappedTokens?.forEach(
-      (current) => current?.address && (map[current.address] = current?.market?.priceHistory?.filter(isPricePoint))
+      (current: any) => current?.address && (map[current.address] = current?.market?.priceHistory?.filter(isPricePoint))
     )
     return map
-  }, [chainId, sparklineQuery?.topTokens])
+  }, [chainId, sparklineQuery])
 
   const { data, loading: loadingTokens } = usePollQueryWhileMounted(
     useTopTokens100Query({
@@ -174,19 +179,19 @@ export function useTopTokens(chain: Chain): UseTopTokensReturnValue {
   )
 
   const unwrappedTokens = useMemo(
-    () => chainId && data?.topTokens?.map((token) => unwrapToken(chainId, token)),
+    () => chainId && (data as any)?.topTokens?.map((token: any) => unwrapToken(chainId, token)),
     [chainId, data]
   )
   const sortedTokens = useSortedTokens(unwrappedTokens)
   const tokenSortRank = useMemo(
     () =>
-      sortedTokens?.reduce((acc, cur, i) => {
-        if (!cur.address) return acc
+      sortedTokens?.reduce<Record<string, number>>((acc, cur: any, i) => {
+        if (!cur?.address) return acc
         return {
           ...acc,
           [cur.address]: i + 1,
         }
-      }, {}) ?? {},
+      }, {}) ?? ({} as Record<string, number>),
     [sortedTokens]
   )
   const filteredTokens = useFilteredTokens(sortedTokens)

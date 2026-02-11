@@ -45,7 +45,7 @@ export default function useTrendingTokens(chainId?: number) {
   const { data, loading } = useTrendingTokensQuery({ variables: { chain } })
 
   return useMemo(
-    () => ({ data: data?.topTokens?.map((token) => unwrapToken(chainId ?? 1, token)), loading }),
+    () => ({ data: data?.topTokens?.map((token: any) => unwrapToken(chainId ?? 1, token)), loading }),
     [chainId, data?.topTokens, loading]
   )
 }

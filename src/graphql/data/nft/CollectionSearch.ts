@@ -64,12 +64,12 @@ function useCollectionQuerySearch(query: string, skip?: boolean): useCollectionS
       data:
         queryData?.nftCollections?.edges
           ?.filter(
-            (collectionEdge) =>
+            (collectionEdge: any) =>
               collectionEdge.node.nftContracts?.[0]?.address &&
               !blocklistedCollections.includes(collectionEdge.node.nftContracts?.[0]?.address)
           )
           .slice(0, MAX_SEARCH_RESULTS)
-          .map((collectionEdge) => {
+          .map((collectionEdge: any) => {
             const queryCollection = collectionEdge.node as NonNullable<NftCollection>
             return formatCollectionQueryData(queryCollection)
           }) ?? [],

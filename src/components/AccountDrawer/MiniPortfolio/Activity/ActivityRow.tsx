@@ -39,6 +39,8 @@ function StatusIndicator({ activity: { status, timestamp } }: { activity: Activi
       return <StyledTimestamp>{timeSince}</StyledTimestamp>
     case TransactionStatus.Failed:
       return <AlertTriangleFilled />
+    default:
+      return null
   }
 }
 

@@ -376,7 +376,7 @@ function parseRemoteActivity(
     }
 
     const changes = assetActivity.details.assetChanges.reduce(
-      (acc: TransactionChanges, assetChange) => {
+      (acc: TransactionChanges, assetChange: any) => {
         if (assetChange.__typename === 'NftApproval') acc.NftApproval.push(assetChange)
         else if (assetChange.__typename === 'NftApproveForAll') acc.NftApproveForAll.push(assetChange)
         else if (assetChange.__typename === 'NftTransfer') acc.NftTransfer.push(assetChange)

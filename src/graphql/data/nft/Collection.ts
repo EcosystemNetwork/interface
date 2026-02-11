@@ -94,9 +94,9 @@ export function formatCollectionQueryData(
   if (!address && !queryCollection?.nftContracts?.[0]?.address) return {} as GenieCollection
   const traits = {} as Record<string, Trait[]>
   if (queryCollection?.traits) {
-    queryCollection?.traits.forEach((trait) => {
+    queryCollection?.traits.forEach((trait: any) => {
       if (trait.name && trait.stats) {
-        traits[trait.name] = trait.stats.map((stats) => {
+        traits[trait.name] = trait.stats.map((stats: any) => {
           return {
             trait_type: stats.name,
             trait_value: stats.value,
@@ -125,7 +125,7 @@ export function formatCollectionQueryData(
       total_volume: market?.totalVolume?.value,
     },
     traits,
-    marketplaceCount: market?.marketplaces?.map((market) => {
+    marketplaceCount: market?.marketplaces?.map((market: any) => {
       return {
         marketplace: market.marketplace?.toLowerCase() ?? '',
         count: market.listings ?? 0,

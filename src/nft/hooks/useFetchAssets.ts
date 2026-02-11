@@ -61,7 +61,7 @@ export function useFetchAssets(): () => Promise<void> {
         nftTrades: buildNftTradeInputFromBagItems(itemsInBag),
         tokenTrades: tokenTradeInput ? tokenTradeInput : undefined,
       },
-      onCompleted: (data) => {
+      onCompleted: (data: any) => {
         if (!data.nftRoute || !data.nftRoute.route) {
           setBagStatus(BagStatus.ADDING_TO_BAG)
           setBagLocked(false)

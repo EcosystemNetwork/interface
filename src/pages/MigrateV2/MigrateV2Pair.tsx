@@ -338,7 +338,7 @@ function V2PairMigration({
 
     migrator.estimateGas
       .multicall(data)
-      .then((gasEstimate) => {
+      .then((gasEstimate: any) => {
         return migrator
           .multicall(data, { gasLimit: calculateGasMargin(gasEstimate) })
           .then((response: TransactionResponse) => {

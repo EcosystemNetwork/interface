@@ -155,7 +155,7 @@ export function useNftBalance(
     [data?.nftBalances?.pageInfo?.endCursor, fetchMore]
   )
 
-  const walletAssets: WalletAsset[] | undefined = data?.nftBalances?.edges?.map((queryAsset) => {
+  const walletAssets: WalletAsset[] | undefined = data?.nftBalances?.edges?.map((queryAsset: any) => {
     const asset = queryAsset?.node.ownedAsset as NonNullable<NftAsset>
     const ethPrice = parseEther(wrapScientificNotation(asset?.listings?.edges[0]?.node.price.value ?? 0)).toString()
     return {

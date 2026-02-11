@@ -183,7 +183,7 @@ const AudioPlayer = ({
   )
 }
 
-const initialFilterState = {
+const initialFilterState: Record<string, boolean> = {
   [ActivityEventType.Listing]: true,
   [ActivityEventType.Sale]: true,
   [ActivityEventType.Transfer]: false,

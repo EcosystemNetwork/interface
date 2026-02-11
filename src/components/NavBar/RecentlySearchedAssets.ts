@@ -60,9 +60,11 @@ export function useRecentlySearchedAssets() {
     // Collects both tokens and collections in a map, so they can later be returned in original order
     const resultsMap: { [key: string]: GenieCollection | SearchToken } = {}
 
-    const queryCollections = queryData?.nftCollections?.edges.map((edge) => edge.node as NonNullable<NftCollection>)
+    const queryCollections = queryData?.nftCollections?.edges.map(
+      (edge: any) => edge.node as NonNullable<NftCollection>
+    )
     const collections = queryCollections?.map(
-      (queryCollection): GenieCollection => {
+      (queryCollection: any): GenieCollection => {
         return {
           address: queryCollection.nftContracts?.[0]?.address ?? '',
           isVerified: queryCollection?.isVerified,
@@ -76,8 +78,8 @@ export function useRecentlySearchedAssets() {
       },
       [queryCollections]
     )
-    collections?.forEach((collection) => (resultsMap[collection.address] = collection))
-    queryData.tokens?.filter(Boolean).forEach((token) => {
+    collections?.forEach((collection: GenieCollection) => (resultsMap[collection.address] = collection))
+    queryData.tokens?.filter(Boolean).forEach((token: any) => {
       resultsMap[token.address ?? `NATIVE-${token.chain}`] = token
     })
 
